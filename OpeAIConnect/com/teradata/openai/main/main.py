@@ -1,7 +1,6 @@
 import os
 
 from com.teradata.openai.apihandler.APIHandler import APIHandler
-from com.teradata.openai.prompt.PromptGenerator import PromptGenerator
 from com.teradata.openai.teradataapi.teradata_api import TeradataApi
 
 
