@@ -7,14 +7,14 @@ from com.teradata.openai.util import Constants
 class APIHandler:
     def __init__(self,
                  key: str,
-                 table_name: str,
+                 li_table: list,
                  user_query: str) -> str:
         self.key = key
-        self.table_name = table_name
+        self.li_table = li_table
         self.user_query = user_query
 
     def _get_msg(self):
-        gen = PromptGenerator(self.table_name, self.user_query)
+        gen = PromptGenerator(self.li_table, self.user_query)
         msg = gen.generate_prompt()
         message = [
             {
