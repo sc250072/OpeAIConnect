@@ -9,8 +9,7 @@ Here are the steps for executing the project:
 
    1. Clone the project using the command "git clone".
    2. Open the project in PyCharm.
-   3. Configure the Run Configurations for "main.py".
-   4. Set up the Teradata instance details and OpenAI API key as environment variables with the following key names:
+   3. Set up the Run Configurations for "main.py" by adding the following environment variables to specify the Teradata instance details and OpenAI API key.
       1. TERADATA_HOST=whomooz;
       2. TERADATA_USER=guest;
       3. TERADATA_PASSWORD=please;
