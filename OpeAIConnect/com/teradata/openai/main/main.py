@@ -6,7 +6,7 @@ from com.teradata.openai.teradataapi.teradata_api import TeradataApi
 
 
 key = os.getenv("OPENAI_KEY")
-api = APIHandler(key, "airflow.employee", "How many employees exists?")
+api = APIHandler(key, "airflow.employee", "How many employees are there?")
 query = api.get_query()
 #query = "SELECT * FROM airflow.employee"
 tapi = TeradataApi()
