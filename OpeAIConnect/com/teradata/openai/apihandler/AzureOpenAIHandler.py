@@ -4,22 +4,23 @@ import logging
 
 from openai.lib.azure import AzureOpenAI
 
-from com.teradata.openai.apihandler.APIHandler import APIHandler
+from com.teradata.openai.apihandler.APIHandler import APIHandler, Environment
 
 
 class AzureOpenAIHandler(APIHandler):
-    def __init__(self, key: str, endpoint: str, li_table: list, user_query: str):
-        super().__init__(key, li_table, user_query)
-        self.endpoint = endpoint
+    def __init__(self, env: Environment, li_table: list, user_query: str):
+        super().__init__(env, li_table, user_query)
+        if env.model_name is None:
+            env.model_name = "gpt-35-turbo"
 
     def get_query(self):
         message = self._get_msg()
         client = AzureOpenAI(
-            api_key=self.key,
+            api_key=self.env.key,
             api_version="2024-02-01",
-            azure_endpoint=self.endpoint
+            azure_endpoint=self.env.endpoint
         )
-        response = client.chat.completions.create(model="gpt-35-turbo",
+        response = client.chat.completions.create(model=self.env.model_name,
                                                   messages=message,
                                                   temperature=0,
                                                   max_tokens=256)

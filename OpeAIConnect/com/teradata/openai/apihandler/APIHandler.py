@@ -1,15 +1,20 @@
-from openai import OpenAI
-
 from com.teradata.openai.prompt.PromptGenerator import PromptGenerator
 from com.teradata.openai.util.Logging import Logging
 
 
+class Environment:
+    def __init__(self, key, endpoint, model_name):
+        self.key = key
+        self.endpoint = endpoint
+        self.model_name = model_name
+
+
 class APIHandler(Logging):
     def __init__(self,
-                 key: str,
+                 env: Environment,
                  li_table: list,
                  user_query: str) -> None:
-        self.key = key
+        self.env = env
         self.li_table = li_table
         self.user_query = user_query
 
