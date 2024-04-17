@@ -36,20 +36,23 @@ class Main(Logging):
             tbl_list = tapi.get_table_names(db_name)
             api = AzureOpenAIHandler(env, tbl_list, user_query)
             query = api.get_query()
-            con = tapi.get_con()
-            try:
-                with con.cursor() as cur:
-                    cur.execute(query)
-                    rows = cur.fetchall()
-                    if len(rows) > 0:
-                        for row in rows:
-                            self.log.info(row)
-                            print(row)
-                    else:
-                        self.log.info("No data exists")
-                        print("No data exists")
-            except Exception as ex:
-                self.log.error(str(ex))
+            if query is not None:
+                con = tapi.get_con()
+                try:
+                    with con.cursor() as cur:
+                        cur.execute(query)
+                        rows = cur.fetchall()
+                        if len(rows) > 0:
+                            for row in rows:
+                                self.log.info(row)
+                                print(row)
+                        else:
+                            self.log.info("No data exists")
+                            print("No data exists")
+                except Exception as ex:
+                    self.log.error(str(ex))
+            else:
+                raise Exception("OpenAI API failed to return SQL query for specified query : %s ", user_query)
         else:
             raise Exception("Please provider a valid username")
 

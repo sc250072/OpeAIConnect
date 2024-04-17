@@ -26,10 +26,15 @@ class PromptGenerator(Logging):
         api = TeradataApi()
         con = api.get_con()
         query = ''
-        for table_name in self.li_table:
-            with con.cursor() as cur:
-                cur.execute("show table %s" % table_name)
-                rows = cur.fetchall()
-                table_def = "".join([str(col).replace("\r", "\n") for col in rows[0]])
-                query = query + "\n" + table_def
+        try:
+            for table_name in self.li_table:
+                with con.cursor() as cur:
+                    cur.execute("show table %s" % table_name)
+                    rows = cur.fetchall()
+                    table_def = "".join([str(col).replace("\r", "\n") for col in rows[0]])
+                    query = query + "\n" + table_def
+            print(query)
+        except Exception as ex:
+            self.log.error(str(ex))
+            print(str(ex))
         return query
