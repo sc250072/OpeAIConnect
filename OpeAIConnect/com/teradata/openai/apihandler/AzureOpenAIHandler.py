@@ -28,6 +28,8 @@ class AzureOpenAIHandler(APIHandler):
         try:
             pattern = r"```(.*?)```"
             sql = re.findall(pattern, sql, re.DOTALL)[0]
+            print("SQL - %s", sql)
         except Exception as ex:
             logging.error(str(ex))
+            print(str(ex))
         return sql

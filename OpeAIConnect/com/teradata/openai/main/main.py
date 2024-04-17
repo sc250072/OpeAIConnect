@@ -9,15 +9,17 @@ from com.teradata.openai.util.Logging import Logging
 
 
 class Main(Logging):
+
     def __init__(self):
+        pass
+
+    def main(self):
         load_dotenv()
-        logging.basicConfig(filename='poc.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
         key = os.getenv("AZURE_OPENAI_API_KEY")
         user_query = os.getenv("USER_QUERY")
         db_name = os.getenv("TERADATA_USER")
         azure_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
         tapi = TeradataApi()
-        tbl_list = []
         if db_name is not None:
             tbl_list = tapi.get_table_names(db_name)
             api = AzureOpenAIHandler(key, azure_endpoint, tbl_list, user_query)
@@ -27,11 +29,19 @@ class Main(Logging):
                 with con.cursor() as cur:
                     cur.execute(query)
                     rows = cur.fetchall()
-                    for row in rows:
-                        self.log.info(row)
+                    if len(rows) > 0:
+                        for row in rows:
+                            self.log.info(row)
+                            print(row)
+                    else:
+                        self.log.info("No data exists")
+                        print("No data exists")
             except Exception as ex:
                 self.log.error(str(ex))
         else:
             raise Exception("Please provider a valid username")
 
 
+if __name__ == "__main__":
+    main = Main()
+    main.main()
