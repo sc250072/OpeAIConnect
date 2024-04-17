@@ -1,14 +1,14 @@
 from openai import OpenAI
 
 from com.teradata.openai.prompt.PromptGenerator import PromptGenerator
-from com.teradata.openai.util import Constants
+from com.teradata.openai.util.Logging import Logging
 
 
-class APIHandler:
+class APIHandler(Logging):
     def __init__(self,
                  key: str,
                  li_table: list,
-                 user_query: str) -> str:
+                 user_query: str) -> None:
         self.key = key
         self.li_table = li_table
         self.user_query = user_query
@@ -26,20 +26,8 @@ class APIHandler:
                 "content": msg.user
             }
         ]
-        print(message)
+        self.log.debug(message)
         return message
 
     def get_query(self):
-        message = self._get_msg()
-        client = OpenAI(api_key=self.key)
-        response = client.chat.completions.create(model="gpt-3.5-turbo",
-                                                  messages=message,
-                                                  temperature=0,
-                                                  max_tokens=256)
-        print(response)
-        sql = response.choices[0].message.content
-        print(sql)
-        sql = sql.replace('```sql\n', '')
-        sql = sql.replace('```', '')
-        print(sql)
-        return sql
+        return ""

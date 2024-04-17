@@ -2,3 +2,13 @@
 OpeAIConnect/.idea/
 
 OpeAIConnect/.env
+
+OpeAIConnect/com/teradata/openai/apihandler/__pycache__/AzureOpenAIHandler.cpython-310.pyc
+
+OpeAIConnect/com/teradata/openai/main/poc.log
+
+OpeAIConnect/com/teradata/openai/prompt/
+
+OpeAIConnect/com/teradata/openai/teradataapi/__pycache__/
+
+OpeAIConnect/com/teradata/openai/util/__pycache__/

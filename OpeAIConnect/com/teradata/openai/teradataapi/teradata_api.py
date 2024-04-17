@@ -2,8 +2,10 @@ import os
 
 import teradatasql
 
+from com.teradata.openai.util.Logging import Logging
 
-class TeradataApi:
+
+class TeradataApi(Logging):
     def __init__(self):
         self.host = os.getenv("TERADATA_HOST", "localhost")
         self.username = os.getenv("TERADATA_USER", "dbc")

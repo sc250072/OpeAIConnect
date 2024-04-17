@@ -1,5 +1,6 @@
 from com.teradata.openai.teradataapi.teradata_api import TeradataApi
 from com.teradata.openai.util import Constants
+from com.teradata.openai.util.Logging import Logging
 
 
 class Message:
@@ -8,7 +9,7 @@ class Message:
         message.user = user
 
 
-class PromptGenerator:
+class PromptGenerator(Logging):
     def __init__(self,
                  li_table: list,
                  user_query: str) -> str:
